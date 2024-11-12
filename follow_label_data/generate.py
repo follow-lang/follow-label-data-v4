@@ -1,4 +1,5 @@
 from huggingface_hub import hf_hub_download
+from huggingface_hub.utils import RepositoryNotFoundError
 import zipfile
 import itertools
 import os
@@ -253,10 +254,13 @@ def upload(output_zip):
     file_name = os.path.basename(output_zip)
     path_in_repo = f"train/{file_name}"
 
+
     try:
-        api.create_repo(repo_id=repo_id, repo_type="dataset")
-    except Exception as e:
-        print(f"存储库已存在或创建失败: {e}")
+        api.dataset_info(repo_id)
+        print(f"数据集 {repo_id} 已存在。")
+    except RepositoryNotFoundError:
+        print(f"数据集 {repo_id} 不存在，正在创建...")
+        api.create_repo(repo_id, repo_type="dataset")
 
     # 通过 upload_with_progress 进行直接上传
     with open(output_zip, "rb") as f:  # 以二进制模式打开文件
