@@ -123,9 +123,8 @@ def get_thm_train_data(thm, arg_map={}):
         tails.append("-| " + condition)
 
     if len(new_diffs) > 0:
-        tails.append("diff")
         for dv in new_diffs:
-            tails.append(f"( {dv[0]} , {dv[1]} )")
+            tails.append(f"diff ( {dv[0]} , {dv[1]} )")
 
     actions = thm["actions"]
     operators = thm["operators"]
@@ -193,7 +192,7 @@ def get_deep_memory(operations, depth=0, max_len=max_len):
 
 def write_memory(memory, folder, zip_index):
     # random write
-    file_idx = random.randint(0, total_memory_file_number)
+    file_idx = random.randint(0, total_memory_file_number-1)
     line = ' '.join(memory) + '\n'
     # 使用对应的锁来保护写入操作
     with write_locks[file_idx]:  # 选择相应的锁
