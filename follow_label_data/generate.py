@@ -183,7 +183,7 @@ def get_deep_memory(operations, depth=0, max_len=max_len):
                 break
             next_level_operations.extend(op_operations)
         except Exception as e:
-            print(e) 
+            print('get_deep_memory', e) 
             continue 
     
     # BFS, 保证deep完整 
@@ -191,13 +191,17 @@ def get_deep_memory(operations, depth=0, max_len=max_len):
         yield from get_deep_memory(next_level_operations, depth - 1, max_len) 
 
 def write_memory(memory, folder, zip_index):
-    # random write
-    file_idx = random.randint(0, total_memory_file_number-1)
-    line = ' '.join(memory) + '\n'
-    # 使用对应的锁来保护写入操作
-    with write_locks[file_idx]:  # 选择相应的锁
-        with open(os.path.join(folder, f'{zip_index}-{file_idx}.txt'), "a") as f:
-            f.write(line)
+    try:
+        # random write
+        file_idx = random.randint(0, total_memory_file_number-1)
+        line = ' '.join(memory) + '\n'
+        # 使用对应的锁来保护写入操作
+        with write_locks[file_idx]:  # 选择相应的锁
+            with open(os.path.join(folder, f'{zip_index}-{file_idx}.txt'), "a") as f:
+                f.write(line)
+    except Exception as e:
+        print(f"写入文件发生错误 - 文件索引: {file_idx}, 错误信息: {e}")
+        raise  # 重新抛出异常以便在上层函数中处理
 
 def generate_thm(index, thm, folder, depth=0, zip_index=0):
     global total_memory_count
@@ -268,6 +272,7 @@ def upload(output_zip):
             print("上传成功")  # 上传成功提示
         except Exception as e:
             print(f"上传失败: {e}")
+            raise
 
 def run(start, end, depth, batch_size=128):
     global total_memory_count, max_memory_size
@@ -307,6 +312,7 @@ def run(start, end, depth, batch_size=128):
             os.remove(output_zip)
     except Exception as e:
         print(f"运行过程中发生错误: {e}")
+        raise
 
 if __name__ == "__main__":
     # 删除旧文件夹
