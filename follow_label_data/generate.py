@@ -365,6 +365,10 @@ if __name__ == "__main__":
         if new_word not in words:
             words.append(new_word)
     
+    for new_word in string.digits:
+        if new_word not in words:
+            words.append(new_word)
+    
     for new_word in ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '+', '{', '}', '[', ']', '|', ';', ':', '"', "'", '<', '>', ',', '.', '?', '/']:
         if new_word not in words:
             words.append(new_word)
