@@ -353,7 +353,7 @@ if __name__ == "__main__":
             global_vars.add(f"g{t[0]}{idx}")
             global_vars.add(f"v{t[0]}{idx}")
     
-    for new_word in ['<state>', '</state>', '<label>', '</label>', '<arg>', '</arg>']:
+    for new_word in ['<state>', '</state>', '<action>', '</action>', '<qed>', '<label>', '</label>', '<arg>', '</arg>']:
         if new_word not in words:
             words.append(new_word)
     
