@@ -109,7 +109,7 @@ def get_axiom_train_data(axiom, arg_map={}):
     rst = get_block_train_data(new_targets, new_conditions, new_diffs)
     splitted_label = "<label> " + ' '.join(list(axiom['label'])) + " </label>"
     args = get_args_train_data(axiom, arg_map)
-    rst = " ".join(["<state>", rst, "</state>", "<label>", splitted_label, "</label>", args]) # [state, action, <qed>]
+    rst = " ".join(["<state>", rst, "</state>", splitted_label, args]) # [state, action, <qed>]
     return [tokenizer(rst)], [] 
 
 
