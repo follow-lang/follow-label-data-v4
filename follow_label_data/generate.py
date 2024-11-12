@@ -27,7 +27,7 @@ total_memory_count = 0
 max_memory_size = 2*1024*1024
 max_depth = 2 # 初始的thm尝试探索深一些
 min_thm_number = 0
-max_thm_number = 10000
+max_thm_number = -1
 zip_offset = 0
 
 upload_repo_id = "Follow-Lang/set.mm.label"
