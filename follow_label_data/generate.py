@@ -26,9 +26,9 @@ n_futures = 32
 total_memory_count = 0 
 max_memory_size = 2*1024*1024
 max_depth = 2 # 初始的thm尝试探索深一些
-min_thm_number = 20000
-max_thm_number = 30000
-zip_offset = 200
+min_thm_number = 40000
+max_thm_number = -1
+zip_offset = 400
 
 upload_repo_id = "Follow-Lang/set.mm.label"
 
